@@ -7,8 +7,16 @@
 
 	<body>
 
-		<div class="slider"></div>
+		<div class="budgetslider"></div>
+		
+
 		<input type="text" id="input-with-keypress">
+
+
+		<div id="slider"></div>
+
+
+
 		<script src="jquery-2.1.0.min.js"></script>
 		<script src="jquery.nouislider.js"></script>
 
@@ -21,7 +29,7 @@
 
 	
 
-				var slider = $('.slider'),
+				var slider = $('.budgetslider'),
 				input = $('#input-with-keypress');
 
 				// Listen to keydown events on the input field.
@@ -41,7 +49,9 @@
 				});
 
 				slider.noUiSlider({
-					start: 40,
+					start: 20,
+					step:5,
+					connect: "lower",
 					range: {
 						'min': 20,
 						'max': 1000
@@ -58,6 +68,15 @@
 					}
 				});
 
+				$("#slider").noUiSlider({
+					start: 1,
+					step:1,
+					connect: "lower",
+					range: {
+					  'min': 1,
+					  'max': 10
+					}
+				});
 
 
 			});
