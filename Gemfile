@@ -42,3 +42,4 @@ gem 'spring',        group: :development
 gem 'quiet_assets'
 gem 'figaro'
 gem 'ordrin'
+gem 'area'

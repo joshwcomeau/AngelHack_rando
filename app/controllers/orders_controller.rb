@@ -5,31 +5,36 @@ class OrdersController < ApplicationController
 
   def new    
     
+    city = "10036".to_region(:city => true)
 
     address = {
       datetime: 'ASAP',
       addr:     '1540 Broadway',
-      city:     'New York',
+      city:     city,
       zip:      '10036'
     }
 
     cuisines = ['American', 'Sushi']
 
-    budget_low = 15
+    budget_low = 10
 
-    find_restaurants(address, cuisines, budget_low)
+    find_restaurant(address, cuisines, budget_low)
   end
 
 
-  def find_restaurants(address, cuisines, budget_low)
+  def find_restaurant(address, cuisines, budget_low)
     # Get a list of all restaurants that deliver to this address from the API
     @all_restaurants = @api.delivery_list(address)
 
     # Filter down to the valid restaurants for this purpose
     @valid_restaurants = get_valid_restaurants(@all_restaurants, cuisines, budget_low)
 
+    # Grab a random validated restaurant!
+    @restaurant = @valid_restaurants.sample
 
-    render :json => @valid_restaurants
+    # Get restaurant info from API
+
+    render :json => @restaurant
   end
 
 
@@ -38,10 +43,10 @@ class OrdersController < ApplicationController
   def get_valid_restaurants(rest, cuisines, budget_low)
     rest.select do |r|
       ( 
-        ( rest["is_delivering"] == 1 ) &&
-        ( rest["services"]["deliver"]["time"] < 60 ) && 
-        ( rest["services"]["deliver"]["mino"] >= budget_low ) && 
-        ( cuisines.any? { |cuisine| rest["cu"].include? cuisine } if rest["cu"] ) 
+        ( r["services"]["deliver"]["can"] == 1 ) &&
+        ( r["services"]["deliver"]["time"] < 60 ) && 
+        ( r["services"]["deliver"]["mino"] <= budget_low ) && 
+        ( cuisines.any? { |cuisine| r["cu"].include? cuisine } if r["cu"] ) 
       )
     end
   end
