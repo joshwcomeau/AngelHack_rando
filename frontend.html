@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>noUiSlider Example</title>
+	</head>
+
+	<body>
+
+		<div class="slider"></div>
+		<input type="text" id="input-with-keypress">
+		<script src="jquery-2.1.0.min.js"></script>
+		<script src="jquery.nouislider.js"></script>
+
+		<link href="jquery.nouislider.css" rel="stylesheet">
+
+		<script>
+
+			 // On document ready, initialize noUiSlider.
+			jQuery(function(){
+
+	
+
+				var slider = $('.slider'),
+				input = $('#input-with-keypress');
+
+				// Listen to keydown events on the input field.
+				input.keydown(function( e ) {
+
+					// Convert the string to a number.
+					var value = Number( slider.val() );
+
+					// 38 is key up,
+					// 40 is key down.
+					switch ( e.which ) {
+						case 38: slider.val( value + 1 );
+							break;
+						case 40: slider.val( value - 1 );
+							break;
+					}
+				});
+
+				slider.noUiSlider({
+					start: 40,
+					range: {
+						'min': 20,
+						'max': 1000
+					},
+					serialization: {
+						lower: [
+							$.Link({
+								target: input
+							})
+						],
+						format: {
+							decimals: 0
+						}
+					}
+				});
+
+
+
+			});
+
+		</script>
+
+	</body>
+</html>
+
