@@ -17,49 +17,18 @@ class MenusController < ApplicationController
       zip:      zip
     }
 
-    cuisines = ['American', 'Indian', 'Thai','Italian']
+    cuisines = params["cuisines"]
 
-    budget_low = params[:budget_low].to_i
-    budget_high = params[:budget_high].to_i
-    servings = params[:servings].to_i
+    budget_low = params["lower"].to_i
+    budget_high = params["upper"].to_i
+    servings = params["servings"].to_i
 
     @restaurant = find_restaurant(address, cuisines, budget_low)
 
     @order = build_order(@restaurant["menu"], budget_low, budget_high, servings)
 
-    @tray = build_tray(@order)
 
-    order_args = {}
-
-    order_args["rid"] = '147'
-    order_args["em"]  = "twoequalsone@hotmail.com"
-    order_args["tray"] = '4622440/1,4622442+4622452/1+4622476/1'
-    order_args["tip"] = '5.05'
-    
-    order_args["first_name"] = "Joshua"
-    order_args["last_name"] = "Comeau"
-    order_args["phone"] = '2345678901'
-    order_args["zip"] = '77840'
-    order_args["addr"] = '1 Main Street'
-    order_args["city"] = 'College Station'
-    order_args["state"] = 'TX'
-
-    order_args["card_name"] = "Joshua Comeau"
-    order_args["card_number"] = '4111111111111111'
-    order_args["card_cvc"] = '123'
-    order_args["card_expiry"] = '02/2016'
-    order_args["card_bill_addr"] = '1 Main Street'
-    order_args["card_bill_city"] = 'College Station'
-    order_args["card_bill_state"] = "TX"
-    order_args["card_bill_zip"] = "77840"
-    order_args["card_bill_phone"] = "2345678901"
-    order_args["delivery_date"] = "ASAP"
-
-
-
-
-    @response = @api.order_guest(order_args)
-    render :json => @response
+    render :json => @order
 
     # render :json => order_args
 

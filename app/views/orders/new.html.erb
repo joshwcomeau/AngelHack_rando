@@ -7,6 +7,8 @@
 
   <body>
 
+<div class="hider" style="display: none; position: absolute; z-index: 101; width: 100%; height: 100%; background: rgba(255,255,255,0.8);"></div>
+
 <div class="container step0" style="display:none">
 
   <a class="show_first_step">
@@ -23,7 +25,7 @@
 <!-- FIRST STEP AFTER LANDING -->
 <header class="top_header">
   <div class="ui green active striped progress" id="top_progress">
-    <div class="bar" style="width: 25%; height: 100%;"></div>
+    <div class="bar" id="pbar" style="width: 25%; height: 100%;"></div>
   </div>
   <div class="logo_corner">
     <%= image_tag 'logo.svg' %>
@@ -84,9 +86,9 @@
 
 </div>
 
-<div class="step2" style="margin-top: 25%; position: relative; height: 100%;">
+<div class="step2" style="position: absolute; top: 30px; width: 100%; height: 100%; right: -100%; background: #FFF;">
 
-  <div class="order_container" style="position: absolute; width: 35%;top: 0;">
+  <div class="order_container" style="position: absolute; width: 35%;top: 0; padding-top: 100px;">
     <div class="order_details">
     
       <h3>How Many Servings?</h3>
@@ -95,26 +97,26 @@
 
     <div id="people"></div>
 
-      <h3 class="results"> 7 Servings</h3>
+      <h3 class="results servings"> 1 Serving</h3>
 
-      <h3>What's your budget?</h3>
+      <h3>What's your budget per serving?</h3>
 
       <div class="budgetslider"></div>
 
-      <h3 class="results" id="input-with-keypress"> $30-50 </h3>
+      <h3 class="budg results" id="input-with-keypress"> $10-15 </h3>
 
     </div>
   </div>
 
 
-  <div class="delivery_container" style="position: absolute; width: 40%; left: 35%;top: 0;">
+  <div class="delivery_container" style="position: absolute; width: 40%; left: 35%;top: 0; padding-top: 40px;">
     <div class="delivery_details">
     <h3 class="delivery_heading">Delivery Address</h3>
       <form>
-        <input type="text" name="firstname" placeholder="First Name"><br>
-        <input type="text" name="lastname" placeholder="Last Name"><br>
-        <input type="text" name="street" placeholder="Street"><br>
-        <input type="text" name="zip" placeholder="Zip">
+        <input type="text" name="firstname" class="firstname" placeholder="First Name"><br>
+        <input type="text" name="lastname" class="lastname" placeholder="Last Name"><br>
+        <input type="text" name="street" class="street" placeholder="Street"><br>
+        <input type="text" name="zip" class="zip" placeholder="Zip">
       </form>
     </div>
   </div>
@@ -122,8 +124,8 @@
 
   
 
-  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0;"> 
-    <div id="red" class="modalButton button red text-blanco text-shadow-negra" data-popup="popupOne">Feed Me</div>
+  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0; padding-top: 150px"> 
+    <div id="red" class="modalButton button red text-blanco text-shadow-negra feedme" data-popup="popupOne">Feed Me</div>
   </div>
 
 
@@ -157,31 +159,125 @@
     </section>
     <a class="closeBtn">CLOSE X</a>
   </section>
-  <section class="modal overlay"></div>
+  <section class="modal overlay"></section>
 </div>
 
-<!-- OLD STUFF -->
-<div style="display:none;">
-  <h1>Order food motherfucker</h1>
-
-  <%= form_tag "/menus" do %>
-    <%= text_field_tag 'budget_low', nil, placeholder: 'budget (low)' %>
-    <%= text_field_tag 'budget_high', nil, placeholder: 'budget (high)' %>
-    <br><br>
-    <%= text_field_tag 'servings', nil, placeholder: 'servings' %>
-    <br><br>
-
-    <%= check_box_tag "cuisine[]", 'American', nil %> American <br>
-    <%= check_box_tag "cuisine[]", 'Thai', nil %> Thai <br>
-    <%= check_box_tag "cuisine[]", 'Chinese', nil %> Chinese <br>
-    <%= check_box_tag "cuisine[]", 'Fast Food', nil %> Fast Food <br>
 
 
-    <%= submit_tag %>
 
-  <% end %>
+<div class="step3" style="position: absolute; z-index: 100;top: 30px; width: 100%; height: 100%; right: -100%; background: #FFF;">
+  <div class="summary_container">
+
+      <div class="summary_title">
+      Order Summary
+      </div>
+
+     <div class="summary_title_grp">
+
+      <table class="summary_table">
+        <tr>
+          <td class="summary_item_title">
+            cuisine
+          </td>
+        </tr>
+        <tr>
+          <td class="summary_item menu_selection">
+            <span id="cuisine_summary"></span>
+          </td>
+        </tr>
+      </table>
+
+        <table class="summary_table">
+        <tr>
+          <td class="summary_item_title">
+            servings
+          </td>
+        </tr>
+        <tr>
+          <td class="summary_item servingschosen">
+            <span id="servings_summary"></span>
+          </td>
+        </tr>
+      </table>
+
+        <table class="summary_table">
+        <tr>
+          <td class="summary_item_title">
+            delivery address
+          </td>
+        </tr>
+        <tr>
+          <td class="summary_item addressgiven">
+            <span id="street_summary"></span>, <span id="zip_summary"></span>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <div class="subtotal_container">
+
+    <div class="summary_title_grp">
+
+        <div class="subtotal_title">
+        subtotal
+        </div>
+
+        <div class="price_total">
+          $<span id="price_summary"></span>
+        </div>
+
+        <div class="tip_title">
+          tip: (default 15%)
+        </div>
+
+        <input class="tip_total" id="tip_summary">
+        </input>
+
+        <div class="total_title">
+          total
+        </div>
+
+        <div class="final_total">
+          $<span id="total_summary"></span>
+        </div>
+
+      </div>
+
+      <button class="take_money"> take my money </button>
+
+    </div>
+
+  </div>
 </div>
 
+<div class="step4" style="background: #0078AB; position: absolute; z-index: 100; top: 30px; width: 100%; height: 100%; right: -100%; color: #FFF">
+  <div class="cheat" style="position: absolute; right: 10px; bottom: 30px; font-size: 3rem; cursor: pointer;">Cheat!</div>
+  <h2 style="margin-top: 50px; text-align: center; font-size: 4rem;">Success!</h2>
+  <p style="width: 50%; margin: 0 auto; text-align: center; font-size: 1.5rem; margin-top: 20px;">Your food will arrive shortly. Hope you get something good!</p>
+
+  <div class="menu_items">
+
+  </div>
+
+</div>
+
+
+<script>
+
+jQuery('.tip_total').keyup(function () {
+    this.value = this.value.replace(/[^0-9\.]/g,'');
+});
+
+ $(".tip_total").blur(function() {
+      $(this).val(Number($(this).val()).toFixed(2));
+  });
+
+
+</script>
 
 <script>
 
@@ -201,11 +297,40 @@
       var selected_cuisines = categoryToggle(this);
       
       
-      console.log(selected_cuisines);
     });
+
+    $(".street, .zip").keyup(function() {
+      $("#street_summary").html( $(".street").val() );
+      $("#zip_summary").html( $(".zip").val() );
+    });
+
+    // BUTTON CLICKS TO GO TO NEXT PAGE
+
+    $(".eat_btn").click(function() {
+      $("#pbar").css({width: '50%'})
+      $(".step2").animate({
+        right: 0
+      }, 1000);
+    });
+
+    $("#red").click(function() {
+      $(".hider").fadeIn(500);
+    });
+
+    $(".take_money").click(function() {
+      $("#pbar").css({width: '100%'})
+      $(".step4").animate({
+        right: 0
+      }, 1000);
+    })
+
+    $(".cheat").click(function() {
+      $(".menu_items").fadeIn(500);
+    })
 
     function categoryToggle(cuisine) {
       $(cuisine).toggleClass('highlight');
+      $("#cuisine_summary").html($(cuisine).html());
       if ( $(cuisine).hasClass('highlight') )  {
         selected_cuisines.push( $(cuisine).attr("value") );
       } else {
@@ -230,6 +355,7 @@
         selected_cuisines.push( $(this).attr("value") );
       });
        
+       $("#cuisine_summary").html("Random");
 
       $(".cat_btn").addClass("highlight");
 
@@ -244,7 +370,7 @@
 
     settings = {
         //Model Popup
-        objModalPopupBtn: ".modalButton",
+        objModalPopupBtn: ".take_money",
         objModalCloseBtn: ".overlay, .closeBtn",
         objModalDataAttr: "data-popup"
     }
@@ -265,20 +391,6 @@
             $(".modal").fadeOut();
         });
 
-  });
-
-
-  </script>
-
-
-
-
-    <script>
-
-       // On document ready, initialize noUiSlider.
-      jQuery(function(){
-
-  
 
         var slider = $('.budgetslider'),
         input = $('#input-with-keypress');
@@ -300,12 +412,12 @@
         });
 
         slider.noUiSlider({
-          start: 20,
+          start: 0,
           step:5,
           connect: "lower",
           range: {
-            'min': 20,
-            'max': 80
+            'min': 10,
+            'max': 40
           }
         });
 
@@ -324,10 +436,20 @@
           slide: function(){
             $("#people").html('');
               var slidervalz = $('#slider').val();
+              slidervalz = parseInt(slidervalz);
               for ( var i = 0; i < slidervalz; i++ ) {
               // Logs "try 0", "try 1", ..., "try 4".
                 $("#people").append('<i class="fa fa-user"></i>');
               }
+              if (servings == 1){
+                 var servings = slidervalz + ' Serving';
+
+              }else {
+                 var servings = slidervalz + ' Servings';
+
+              }
+              $('.servings, #servings_summary').html(servings);
+
           },
           set: function(){
             var slidervalz = $('#slider').val();
@@ -343,15 +465,17 @@
         $('.budgetslider').on({
           slide: function(){
             var sliderval = $('.budgetslider').val();
-            var upper = parseInt(sliderval) + 30;
-            var sliderrange = sliderval + ' ' + upper;
+            sliderval = parseInt(sliderval);
+            var upper = parseInt(sliderval) + 5;
+            var sliderrange = '$' + sliderval + ' - ' + '$' + upper;
 
             $('#input-with-keypress').val(sliderrange);
           },
           set: function(){
             var sliderval = $('.budgetslider').val();
-            var upper = parseInt(sliderval) + 30;
-            var sliderrange = sliderval + ' ' + upper;
+            sliderval = parseInt(sliderval);
+            var upper = parseInt(sliderval) + 5;
+            var sliderrange = '$' + sliderval + ' - ' + '$' + upper;
 
 
             $('#input-with-keypress').html(sliderrange);
@@ -359,11 +483,10 @@
           }
         });
 
-        $('.submit').click(function(){
-
+        $('.feedme').click(function(){
+            
 
                 var firstname = $('.firstname').val();
-
 
                 var lastname = $('.lastname').val();
 
@@ -371,20 +494,47 @@
 
                 var zip = $('.zip').val();
 
-                var phone = $('.phone').val();
-          var lower = $('.budgetslider').val();
-          var upper = parseInt(sliderval) + 30;
+                var lower = $('.budgetslider').val();
+                var upper = parseInt( $('.budgetslider').val() ) + 30;
 
-          var servings = $('#slider').val();
+                var servings = $('#slider').val();
 
              $.ajax({
                 type: "POST", // use method specified in form attributes
-                url: '?page_id=1116', // use action specified in form attributes (servlet)
-                data: { firstname : firstname, lastname : lastname, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+                url: 'http://localhost:3000/menus', // use action specified in form attributes (servlet)
+                data: { cuisines: selected_cuisines, firstname : firstname, lastname : lastname, street : street, zip : zip, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
                 success: function(data) { 
 
-                  var result = jQuery.parseJSON(data);
-                  // result['status']
+                  $("#pbar").css({width: '75%'});
+                  $(".hider").fadeOut(500);
+
+                  $(".step3").animate({
+                    right: 0
+                  }, 1000);
+
+                 console.log(data);
+
+
+                  var subtotal = 0;
+
+                  _.each(data, function(item) {
+                    $(".menu_items").append("<div class='menu_item'><strong>"+item["name"]+"</strong><p class='mi_descrip'>"+item["descrip"]+"</p><p class='mi_price'>"+item["price"]+"</p></div>");
+                    
+
+
+                    subtotal += parseFloat(item["price"]);
+                    
+                  });
+
+                  console.log(subtotal);
+
+                  $("#price_summary").html(subtotal);
+                  $("#tip_summary").val( (subtotal * 0.15).toFixed(2) );
+                  $("#total_summary").html( (subtotal * 1.15).toFixed(2) );
+
+                  // $('.addressgiven').html(street);
+                  // $('.servingschosen').html(servings);
+                  // $('.menu_selection').html();
                   
 
                 }
@@ -420,37 +570,39 @@ rid:        @restaurant["restaurant_id"],
         */
         
 
-        $('.ccsubmit').click(function(){
+        // $('.ccsubmit').click(function(){
 
 
-                var name = $('.name').val();
+        //         var name = $('.name').val();
 
-                var street = $('.street').val();
+        //         var street = $('.street').val();
 
-                var zip = $('.zip').val();
+        //         var zip = $('.zip').val();
 
-                var phone = $('.phone').val();
-          var lower = $('.budgetslider').val();
-          var upper = parseInt(sliderval) + 30;
+        //         var phone = $('.phone').val();
+        //   var lower = $('.budgetslider').val();
+        //   var upper = parseInt(sliderval) + 5;
 
-          var servings = $('#slider').val();
+        //   var servings = $('#slider').val();
 
-             $.ajax({
-                type: "POST", // use method specified in form attributes
-                url: '?page_id=1116', // use action specified in form attributes (servlet)
-                data: { name : name, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
-                success: function(data) { 
+        //      $.ajax({
+        //         type: "POST", // use method specified in form attributes
+        //         url: '?page_id=1116', // use action specified in form attributes (servlet)
+        //         data: { name : name, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+        //         success: function(data) { 
 
-                  var result = jQuery.parseJSON(data);
-                  // result['status']
+        //           var result = jQuery.parseJSON(data);
+        //           // result['status']
                   
 
-                }
-            });
+        //         }
+        //     });
 
 
-        });
+        // });
+    });
 
-      });
 
-    </script>
+  </script>
+
+
