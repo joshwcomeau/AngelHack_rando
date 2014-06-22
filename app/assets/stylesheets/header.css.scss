@@ -1,0 +1,21 @@
+header.top_header {
+  position: relative;
+  z-index: 100;
+}
+
+#top_progress {
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+  height: 35px;
+
+  .progress {
+    width: 25%;
+    height: 100%;
+    background-color: #0C0;
+  }
+  .progress_fraction {
+    position: absolute;
+    right: 0;
+  }
+}

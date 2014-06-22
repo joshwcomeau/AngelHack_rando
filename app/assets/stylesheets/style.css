@@ -2,7 +2,6 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@import "semantic-ui";
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -51,8 +50,8 @@ table {
 
 html, body {
   height: 100%;
-  overflow: hidden;
-}
+/*  overflow: hidden;
+*/}
 
 .clearfix:after {
   content: ".";
@@ -123,6 +122,9 @@ hr{
   height: 80vh;
 }
 
+.feed_me_container {
+  text-align: center;
+}
 .billing_container{
   background: #e6e7e8;
 
@@ -133,7 +135,6 @@ hr{
 .cuisines,
 .order_details,
 .delivery_details,
-.lets_eat,
 .feed_me,
 .billing_details{
   width: 400px;
@@ -198,6 +199,12 @@ hr{
   text-align: center;
 }
 
+.lets_eat {
+  width: 400px;
+  position: absolute;
+  right: 0;
+  top: 30%;
+}
 
 .lets_eat_buttons {
   float: left;
@@ -212,10 +219,9 @@ hr{
 
 .button{
   /*[ Position ]*/
-  margin:0 10px 50px 10px;
-  float:left;
-  left: 200px;
-  top:90px;
+  margin:0 auto;
+]/*  left: 200px;
+*/  top:90px;
   /* [ Button ] */
   position:relative;
   height:150px;
@@ -357,8 +363,6 @@ input[type=text]{
 
 
 /* States */
-
-}
 .button:hover{
   color:#333;
 }

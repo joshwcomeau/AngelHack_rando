@@ -45,5 +45,11 @@ gem 'ordrin'
 gem 'area'
 
 gem 'rest-client'
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
+
+gem 'therubyracer', platforms: :ruby # or any other runtime
+gem 'less-rails'
+gem 'autoprefixer-rails'
+gem 'semantic-ui-sass'
+gem 'semantic-ui-rails'
+gem "font-awesome-rails"

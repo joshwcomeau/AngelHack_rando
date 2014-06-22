@@ -1,3 +1,12 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>noUiSlider Example</title>
+  </head>
+
+  <body>
+
 <div class="container step0" style="display:none">
 
   <a class="show_first_step">
@@ -12,92 +21,93 @@
 </div>
 
 <!-- FIRST STEP AFTER LANDING -->
-<div class="ui active striped progress" id="top_progress">
-  <div class="bar" style="width: 25%; height: 100%;"></div>
-</div>
+<header class="top_header">
+  <div class="ui green active striped progress" id="top_progress">
+    <div class="bar" style="width: 25%; height: 100%;"></div>
+  </div>
+  <div class="logo_corner">
+    <%= image_tag 'logo.svg' %>
+  </div>
+</header>
 
 <div class="step1">
   <div class="cuisine_container">
     <div class="cuisines" style="width: 500px">
-      <div class="logo_corner">
-        <%= image_tag 'logo.svg' %>
-      </div>
+      
       <h2 class="craving_header">What are you Craving?</h2>
     
-
-<div class="ui form">
-  <div class="inline field">
-    <div class="ui checkbox">
-      <input type="checkbox">
-      <label>Checkbox</label>
-    </div>
-  </div>
-  <div class="inline field">
-    <div class="ui slider checkbox">
-      <input type="checkbox">
-      <label>Slider</label>
-    </div>
-    <label></label>
-  </div>
-  <div class="inline field">
-    <div class="ui toggle checkbox">
-      <input type="checkbox">
-      <label>Toggle</label>
-    </div>
-  </div>
-</div>    
       <ul class="cuisine_btns">
-            <li>
-              <button class="cat_btn">Indian</button>
-            </li>
-            <li>
-              <button class="cat_btn">Chinese</button>
-            </li>
-            <li>
-              <button class="cat_btn">Mexican</button>
-            </li>
-            <li>
-              <button class="cat_btn">Japanese</button>
-            </li>
-            <li>
-              <button class="cat_btn">Greek</button>
-            </li>
-            <li>
-              <button class="cat_btn">Moroccan</button>
-            </li>
-            <li>
-              <button class="cat_btn">Korean</button>
-            </li>
-            <li>
-              <button class="cat_btn">Turkish</button>
-            </li>
-            <li>
-              <button class="cat_btn">Thai</button>
-            </li>
-            <li>
-              <button class="cat_btn">Middle Eastern</button>
-            </li>
+        <li>
+          <button class="cat_btn" value="Indian">Indian</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Chinese">Chinese</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Mexican">Mexican</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Japanese">Japanese</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Greek">Greek</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Moroccan">Moroccan</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Korean">Korean</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Turkish">Turkish</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Thai">Thai</button>
+        </li>
+        <li>
+          <button class="cat_btn" value="Middle Eastern">Middle Eastern</button>
+        </li>
       </ul>
     </div>
-
+    <div class="lets_eat">
+      <ul class="lets_eat_buttons">
+        <li>
+        <button class="eat_btn" id="readytoeat"> Ready to eat </button>
+        </li>
+        <li>
+        <button class="eat_btn" id="idgas"> Don't give a shit</button>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div class="order_container">
+
+</div>
+
+<div class="step2" style="margin-top: 25%; position: relative; height: 100%;">
+
+  <div class="order_container" style="position: absolute; width: 35%;top: 0;">
     <div class="order_details">
-      <div class="logo">
-      <%= image_tag 'logo.svg' %>
-        Hungry Belly
-      </div>
+    
       <h3>How Many Servings?</h3>
+
+    <div id="slider"></div>
+
+    <div id="people"></div>
+
       <h3 class="results"> 7 Servings</h3>
 
       <h3>What's your budget?</h3>
-      <h3 class="results"> $30-50 </h3>
+
+      <div class="budgetslider"></div>
+
+      <h3 class="results" id="input-with-keypress"> $30-50 </h3>
+
     </div>
   </div>
 
 
-  <div class="delivery_container">
+  <div class="delivery_container" style="position: absolute; width: 40%; left: 35%;top: 0;">
     <div class="delivery_details">
     <h3 class="delivery_heading">Delivery Address</h3>
       <form>
@@ -110,27 +120,14 @@
   </div>
 
 
-  <div class="lets_eat_container">
-       <div class="lets_eat">
-         <ul class="lets_eat_buttons">
-           <li>
-           <button class="eat_btn"> Ready to eat </button>
-           </li>
-           <li>
-           <button class="eat_btn"> Don't give a shit</button>
-           </li>
-         </ul>
-       </div>
-  </div>
+  
 
-  <div class="feed_me_container">
-    <div class="feed_me">
-        <div id="red" class="modalButton button red text-blanco text-shadow-negra" data-popup="popupOne">Feed Me</div>
-      </div>
+  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0;"> 
+    <div id="red" class="modalButton button red text-blanco text-shadow-negra" data-popup="popupOne">Feed Me</div>
   </div>
 
 
-
+</div>
 
 
 
@@ -189,6 +186,9 @@
 <script>
 
   $(document).ready(function(){
+    
+    var selected_cuisines = [];
+
     $(".show_first_step").click(function() {
       $(".step0").slideUp(1000);
     });
@@ -198,8 +198,49 @@
     ;
 
     $('.cat_btn').click(function(){
-      $(this).toggleClass('highlight');
+      var selected_cuisines = categoryToggle(this);
+      
+      
+      console.log(selected_cuisines);
     });
+
+    function categoryToggle(cuisine) {
+      $(cuisine).toggleClass('highlight');
+      if ( $(cuisine).hasClass('highlight') )  {
+        selected_cuisines.push( $(cuisine).attr("value") );
+      } else {
+        var index = selected_cuisines.indexOf($(cuisine).html());
+        if (index > -1) {
+         selected_cuisines.splice(index, 1);
+        }
+      }
+
+      return selected_cuisines
+    }
+
+    function goToStepTwo(){
+
+    }
+
+    $("#idgas").click(function() {
+
+      $( ".cat_btn" ).each(function() {
+        $( this ).addClass( "highlight" );
+        selected_cuisines = [];
+        selected_cuisines.push( $(this).attr("value") );
+      });
+       
+
+      $(".cat_btn").addClass("highlight");
+
+      goToStepTwo()
+    });
+
+    $("#readytoeat").click(function() {
+
+      goToStepTwo()
+    });
+
 
     settings = {
         //Model Popup
@@ -228,3 +269,188 @@
 
 
   </script>
+
+
+
+
+    <script>
+
+       // On document ready, initialize noUiSlider.
+      jQuery(function(){
+
+  
+
+        var slider = $('.budgetslider'),
+        input = $('#input-with-keypress');
+
+        // Listen to keydown events on the input field.
+        input.keydown(function( e ) {
+
+          // Convert the string to a number.
+          var value = Number( slider.val() );
+
+          // 38 is key up,
+          // 40 is key down.
+          switch ( e.which ) {
+            case 38: slider.val( value + 1 );
+              break;
+            case 40: slider.val( value - 1 );
+              break;
+          }
+        });
+
+        slider.noUiSlider({
+          start: 20,
+          step:5,
+          connect: "lower",
+          range: {
+            'min': 20,
+            'max': 80
+          }
+        });
+
+        $("#slider").noUiSlider({
+          start: 1,
+          step:1,
+          connect: "lower",
+          range: {
+            'min': 1,
+            'max': 10
+          }
+    
+        });
+
+        $('#slider').on({
+          slide: function(){
+            $("#people").html('');
+              var slidervalz = $('#slider').val();
+              for ( var i = 0; i < slidervalz; i++ ) {
+              // Logs "try 0", "try 1", ..., "try 4".
+                $("#people").append('<i class="fa fa-user"></i>');
+              }
+          },
+          set: function(){
+            var slidervalz = $('#slider').val();
+            // for ( var i = 0; i < slidervalz; i++ ) {
+            // // Logs "try 0", "try 1", ..., "try 4".
+            // // $("#people").append('<i class="fa fa-user"></i>');
+            // }
+          }
+        });
+
+
+
+        $('.budgetslider').on({
+          slide: function(){
+            var sliderval = $('.budgetslider').val();
+            var upper = parseInt(sliderval) + 30;
+            var sliderrange = sliderval + ' ' + upper;
+
+            $('#input-with-keypress').val(sliderrange);
+          },
+          set: function(){
+            var sliderval = $('.budgetslider').val();
+            var upper = parseInt(sliderval) + 30;
+            var sliderrange = sliderval + ' ' + upper;
+
+
+            $('#input-with-keypress').html(sliderrange);
+
+          }
+        });
+
+        $('.submit').click(function(){
+
+
+                var firstname = $('.firstname').val();
+
+
+                var lastname = $('.lastname').val();
+
+                var street = $('.street').val();
+
+                var zip = $('.zip').val();
+
+                var phone = $('.phone').val();
+          var lower = $('.budgetslider').val();
+          var upper = parseInt(sliderval) + 30;
+
+          var servings = $('#slider').val();
+
+             $.ajax({
+                type: "POST", // use method specified in form attributes
+                url: '?page_id=1116', // use action specified in form attributes (servlet)
+                data: { firstname : firstname, lastname : lastname, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+                success: function(data) { 
+
+                  var result = jQuery.parseJSON(data);
+                  // result['status']
+                  
+
+                }
+            });
+
+
+        });
+
+        /*
+
+rid:        @restaurant["restaurant_id"],
+     em:         "test@test.com",
+     tray:       @tray,
+     tip:        '5.05',
+     first_name: "Joshua",
+     last_name:  "Tester",
+     phone:      "6478967502",
+     zip:        zip,
+     addr:       addr,
+     city:       city,
+     state:      state,
+     card_name:        "Joshua Tester",
+     card_number:      '4111111111111111',
+     card_cvc:         '123',
+     card_expiry:      '02/2016',
+     card_bill_addr:   addr,
+     card_bill_addr2:  "",
+     card_bill_city:   city,
+     card_bill_state:  state,
+     card_bill_zip:    zip,
+     card_bill_phone:  "6478967502",
+     delivery_date:    "ASAP"
+        */
+        
+
+        $('.ccsubmit').click(function(){
+
+
+                var name = $('.name').val();
+
+                var street = $('.street').val();
+
+                var zip = $('.zip').val();
+
+                var phone = $('.phone').val();
+          var lower = $('.budgetslider').val();
+          var upper = parseInt(sliderval) + 30;
+
+          var servings = $('#slider').val();
+
+             $.ajax({
+                type: "POST", // use method specified in form attributes
+                url: '?page_id=1116', // use action specified in form attributes (servlet)
+                data: { name : name, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+                success: function(data) { 
+
+                  var result = jQuery.parseJSON(data);
+                  // result['status']
+                  
+
+                }
+            });
+
+
+        });
+
+      });
+
+    </script>
