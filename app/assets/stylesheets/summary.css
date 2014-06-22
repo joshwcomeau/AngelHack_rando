@@ -194,6 +194,7 @@ html, body {
   font-size: 0.9rem;
   margin: 10px 0px;
 }
+<<<<<<< HEAD
 
 #hours, #minutes, .dot {
     padding: 10px 5px;
@@ -223,4 +224,42 @@ html, body {
     color: #fff;
     padding: 10px 0px;
     font-size: 40px;
+=======
+.fa-user {
+  margin: 0 2px;
+}
+
+.spinning_loader {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  width: 20%;
+  margin: auto;
+
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(-30deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(60deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(-30deg);
+  }
+
+}
+.spinning_loader
+{
+  -webkit-animation-name:             rotate; 
+  -webkit-animation-duration:         1.5s; 
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-transition-timing-function: linear;
+>>>>>>> 40ab4a5a7c6f389da99a5e72a75a14d72f8435d1
 }

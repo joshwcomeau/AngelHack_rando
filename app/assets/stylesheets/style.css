@@ -222,16 +222,16 @@ hr{
   /*[ Position ]*/
   margin:0 auto;
 ]/*  left: 200px;
-*/  top:90px;
+*/  top:80px;
   /* [ Button ] */
   position:relative;
-  height:150px;
-  width:150px;
+  height:200px;
+  width:200px;
   cursor:pointer;
-  line-height:146px;
+  line-height:200px;
   background-color:#f1f1f1;
   text-align:center;
-  font-size:30px;
+  font-size:38px;
   display:inline-block;
   text-shadow:0px -1px 1px rgba(255,255,255,0.5);
   color:#444;
@@ -311,16 +311,22 @@ hr{
 
 input[type=text]{
   width:100%;
-  margin-bottom:5px;
   color:#404041;
   background: #d1d2d4;
-  font-size: 38px;
+  font-size: 1.4rem;
   padding:4px;
+  margin: 5px 0px;
+  outline: none;
   border: 3px solid rgba(0,0,0,0);
   font-weight: 700;
   border-radius:10px;
   font-family: 'Cabin', sans-serif;
 }
+  input[type=text]:focus {
+    background: #EEE;
+    border-bottom: 1px solid #AAA;
+    border-right: 1px solid #AAA;
+  }
 
 
 ::-webkit-input-placeholder {
@@ -357,7 +363,7 @@ input[type=text]{
 }
 .billing_heading,
 .delivery_heading{
-  font-size: 32px;
+  font-size:  1.6rem;
   font-weight: 600;
 }
 
