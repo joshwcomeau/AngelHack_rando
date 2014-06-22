@@ -81,5 +81,4 @@ test:
 production:
   <<: *default
   database: AngelHack_rando_production
-  username: AngelHack_rando
   password: <%= ENV['ANGELHACK_RANDO_DATABASE_PASSWORD'] %>
