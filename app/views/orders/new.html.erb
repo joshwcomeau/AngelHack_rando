@@ -1,18 +1,198 @@
-<h1>Order food motherfucker</h1>
+<div class="container step0">
 
-<%= form_tag "/menus" do %>
-  <%= text_field_tag 'budget_low', nil, placeholder: 'budget (low)' %>
-  <%= text_field_tag 'budget_high', nil, placeholder: 'budget (high)' %>
-  <br><br>
-  <%= text_field_tag 'servings', nil, placeholder: 'servings' %>
-  <br><br>
+  <a class="show_first_step">
+    <div class="logo">
+      <%= image_tag "logo.svg" %>
+    </div>
 
-  <%= check_box_tag "cuisine[]", 'American', nil %> American <br>
-  <%= check_box_tag "cuisine[]", 'Thai', nil %> Thai <br>
-  <%= check_box_tag "cuisine[]", 'Chinese', nil %> Chinese <br>
-  <%= check_box_tag "cuisine[]", 'Fast Food', nil %> Fast Food <br>
+    <div class="landing_title">
+      Hungry?
+    </div>
+  </a>
+</div>
+
+<!-- FIRST STEP AFTER LANDING -->
+<div class="step1">
+  <div class="cuisine_container">
+    <div class="cuisines">
+      <div class="logo_corner">
+        <%= image_tag 'logo.svg' %>
+      </div>
+      <h2 style="padding-top: 6rem;">What are you Craving?</h2>
+      <ul class="cuisine_btns">
+            <li>
+              <button class="cat_btn">Indian</button>
+            </li>
+            <li>
+              <button class="cat_btn">Chinese</button>
+            </li>
+            <li>
+              <button class="cat_btn">Mexican</button>
+            </li>
+            <li>
+              <button class="cat_btn">Japanese</button>
+            </li>
+            <li>
+              <button class="cat_btn">Greek</button>
+            </li>
+            <li>
+              <button class="cat_btn">Moroccan</button>
+            </li>
+            <li>
+              <button class="cat_btn">Korean</button>
+            </li>
+            <li>
+              <button class="cat_btn">Turkish</button>
+            </li>
+            <li>
+              <button class="cat_btn">Thai</button>
+            </li>
+            <li>
+              <button class="cat_btn">Middle Eastern</button>
+            </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="order_container">
+    <div class="order_details">
+      <div class="logo">
+      <img src="img/logo.svg" alt="">
+        Hungry Belly
+      </div>
+      <h3>How Many Servings?</h3>
+      <h3 class="results"> 7 Servings</h3>
+
+      <h3>What's your budget?</h3>
+      <h3 class="results"> $30-50 </h3>
+    </div>
+  </div>
 
 
-  <%= submit_tag %>
-  
-<% end %>
+  <div class="delivery_container">
+    <div class="delivery_details">
+    <h3 class="delivery_heading">Delivery Address</h3>
+      <form>
+        <input type="text" name="firstname" placeholder="First Name"><br>
+        <input type="text" name="lastname" placeholder="Last Name"><br>
+        <input type="text" name="street" placeholder="Street"><br>
+        <input type="text" name="zip" placeholder="Zip">
+      </form>
+    </div>
+  </div>
+
+
+  <div class="lets_eat_container">
+       <div class="lets_eat">
+         <ul class="lets_eat_buttons">
+           <li>
+           <button class="eat_btn"> Ready to eat </button>
+           </li>
+           <li>
+           <button class="eat_btn"> Don't give a shit</button>
+           </li>
+         </ul>
+       </div>
+  </div>
+
+  <div class="feed_me_container">
+    <div class="feed_me">
+        <div id="red" class="modalButton button red text-blanco text-shadow-negra" data-popup="popupOne">Feed Me</div>
+      </div>
+  </div>
+
+
+
+
+
+
+  <section class="modal modalWindow" id="popupOne">
+    <section class="modalWrapper">
+      <h2>Check Out</h2>
+      <div class="billing_container">
+           <div class="billing_details">
+             <h3 class="billing_heading">Billing Information</h3>
+               <form>
+                <input type="text" pattern="[0-9]{13,16}" name="creditcard" placeholder="Credit Card"> <br>
+                <input id="month" type="text" name="month" placeholder="MM">
+                <input id="year" type="text" name="year" placeholder="YY">
+                <input id="security_code" type="text" name="securitycode" placeholder="111">
+
+                <hr>
+              <h3 class="billing_heading">Billing Address</h3>
+                <input type="text" name="street" placeholder="Street"><br>
+                <input type="text" name="zip" placeholder="Zip">
+                <input type="text" name="tel" placeholder="416-555-555">
+
+             </form>
+           </div>
+      </div>
+
+
+    </section>
+    <a class="closeBtn">CLOSE X</a>
+  </section>
+  <section class="modal overlay"></div>
+</div>
+
+<!-- OLD STUFF -->
+<div style="display:none;">
+  <h1>Order food motherfucker</h1>
+
+  <%= form_tag "/menus" do %>
+    <%= text_field_tag 'budget_low', nil, placeholder: 'budget (low)' %>
+    <%= text_field_tag 'budget_high', nil, placeholder: 'budget (high)' %>
+    <br><br>
+    <%= text_field_tag 'servings', nil, placeholder: 'servings' %>
+    <br><br>
+
+    <%= check_box_tag "cuisine[]", 'American', nil %> American <br>
+    <%= check_box_tag "cuisine[]", 'Thai', nil %> Thai <br>
+    <%= check_box_tag "cuisine[]", 'Chinese', nil %> Chinese <br>
+    <%= check_box_tag "cuisine[]", 'Fast Food', nil %> Fast Food <br>
+
+
+    <%= submit_tag %>
+
+  <% end %>
+</div>
+
+
+<script>
+
+  $(document).ready(function(){
+    $(".show_first_step").click(function() {
+      $(".step0").slideUp(1000);
+    });
+
+    $('.cat_btn').click(function(){
+      $(this).toggleClass('highlight');
+    });
+
+    settings = {
+        //Model Popup
+        objModalPopupBtn: ".modalButton",
+        objModalCloseBtn: ".overlay, .closeBtn",
+        objModalDataAttr: "data-popup"
+    }
+      $(settings.objModalPopupBtn).bind("click", function () {
+            if ($(this).attr(settings.objModalDataAttr)) {
+
+                var strDataPopupName = $(this).attr(settings.objModalDataAttr);
+
+
+                //Fade In Modal Pop Up
+                $(".overlay, #" + strDataPopupName).fadeIn();
+
+            }
+        });
+
+        //On clicking the modal background
+        $(settings.objModalCloseBtn).bind("click", function () {
+            $(".modal").fadeOut();
+        });
+
+  });
+
+
+  </script>
