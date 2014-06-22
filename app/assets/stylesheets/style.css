@@ -2,6 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
+@import "semantic-ui";
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -102,7 +103,7 @@ hr{
 .cuisine_container,
 .delivery_container{
   background: #e6e7e8;
-  width:600px;
+  width:800px;
   height: 100vh;
 
 }
@@ -146,19 +147,25 @@ hr{
 
 /** Modules **/
 
+
 .logo_corner {
   position: absolute;
   z-index: 10;
-  left: 0.5rem;
-  top: 0.5rem;
-  background-color: #666;
+  left: 0.25rem;
+  top: 0.25rem;
   width: 80px;
   height: 80px;
-  padding:10px;
-  border-radius: 12px;
+  padding: 5px;
+  border-radius: 0 0 12px 0;
 }
 .logo_corner img {
   width: 100%;
+}
+
+.craving_header {
+  padding-top: 4.5rem; 
+  padding-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .cuisine_btns{

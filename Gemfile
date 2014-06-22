@@ -43,10 +43,7 @@ gem 'quiet_assets'
 gem 'figaro'
 gem 'ordrin'
 gem 'area'
-gem 'thin'
 
 gem 'rest-client'
-gem 'rails_12factor', group: :production
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
 
-
-ruby "2.1.0"

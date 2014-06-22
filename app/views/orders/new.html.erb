@@ -1,4 +1,4 @@
-<div class="container step0">
+<div class="container step0" style="display:none">
 
   <a class="show_first_step">
     <div class="logo">
@@ -12,13 +12,40 @@
 </div>
 
 <!-- FIRST STEP AFTER LANDING -->
+<div class="ui active striped progress" id="top_progress">
+  <div class="bar" style="width: 25%; height: 100%;"></div>
+</div>
+
 <div class="step1">
   <div class="cuisine_container">
-    <div class="cuisines">
+    <div class="cuisines" style="width: 500px">
       <div class="logo_corner">
         <%= image_tag 'logo.svg' %>
       </div>
-      <h2 style="padding-top: 6rem;">What are you Craving?</h2>
+      <h2 class="craving_header">What are you Craving?</h2>
+    
+
+<div class="ui form">
+  <div class="inline field">
+    <div class="ui checkbox">
+      <input type="checkbox">
+      <label>Checkbox</label>
+    </div>
+  </div>
+  <div class="inline field">
+    <div class="ui slider checkbox">
+      <input type="checkbox">
+      <label>Slider</label>
+    </div>
+    <label></label>
+  </div>
+  <div class="inline field">
+    <div class="ui toggle checkbox">
+      <input type="checkbox">
+      <label>Toggle</label>
+    </div>
+  </div>
+</div>    
       <ul class="cuisine_btns">
             <li>
               <button class="cat_btn">Indian</button>
@@ -52,12 +79,13 @@
             </li>
       </ul>
     </div>
+
   </div>
 
   <div class="order_container">
     <div class="order_details">
       <div class="logo">
-      <img src="img/logo.svg" alt="">
+      <%= image_tag 'logo.svg' %>
         Hungry Belly
       </div>
       <h3>How Many Servings?</h3>
@@ -164,6 +192,10 @@
     $(".show_first_step").click(function() {
       $(".step0").slideUp(1000);
     });
+
+    $('.ui.checkbox')
+      .checkbox()
+    ;
 
     $('.cat_btn').click(function(){
       $(this).toggleClass('highlight');
