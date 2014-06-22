@@ -55,17 +55,7 @@
 					connect: "lower",
 					range: {
 						'min': 20,
-						'max': 1000
-					},
-					serialization: {
-						lower: [
-							$.Link({
-								target: input
-							})
-						],
-						format: {
-							decimals: 0
-						}
+						'max': 80
 					}
 				});
 
@@ -76,17 +66,8 @@
 					range: {
 					  'min': 1,
 					  'max': 10
-					},
-					serialization: {
-						lower: [
-							$.Link({
-								target: input
-							})
-						],
-						format: {
-							decimals: 0
-						}
 					}
+		
 				});
 
 				$('#slider').on({
@@ -94,11 +75,32 @@
 						$("#people").html('');
 					},
 					set: function(){
-						var sliderval = $('#slider').val();
-						for ( var i = 0; i < sliderval; i++ ) {
+						var slidervalz = $('#slider').val();
+						for ( var i = 0; i < slidervalz; i++ ) {
 						// Logs "try 0", "try 1", ..., "try 4".
 						$("#people").append('<i class="fa fa-user"></i>');
 						}
+					}
+				});
+
+
+
+				$('.budgetslider').on({
+					slide: function(){
+						var sliderval = $('.budgetslider').val();
+						var upper = parseInt(sliderval) + 30;
+						var sliderrange = sliderval + ' ' + upper;
+
+						$('#input-with-keypress').val(sliderrange);
+					},
+					set: function(){
+						var sliderval = $('.budgetslider').val();
+						var upper = parseInt(sliderval) + 30;
+						var sliderrange = sliderval + ' ' + upper;
+
+
+						$('#input-with-keypress').val(sliderrange);
+
 					}
 				});
 
