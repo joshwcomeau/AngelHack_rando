@@ -16,6 +16,22 @@
 
 		<div id="slider"></div>
 
+		<div id="people"></div>
+
+
+		First Form:
+
+		<input type="text" id="firstname" placeholder="first name">
+
+		<input type="text" id="lastname" placeholder="last name">
+
+		<input type="text" id="street" placeholder="street">
+
+		<input type="text" id="zip" placeholder="zip">
+
+		<input type="text" id="input-with-keypress" placeholder="phone">
+
+		<div class="submit">Submit</div>
 
 
 		<script src="jquery-2.1.0.min.js"></script>
@@ -55,17 +71,7 @@
 					connect: "lower",
 					range: {
 						'min': 20,
-						'max': 1000
-					},
-					serialization: {
-						lower: [
-							$.Link({
-								target: input
-							})
-						],
-						format: {
-							decimals: 0
-						}
+						'max': 80
 					}
 				});
 
@@ -77,8 +83,134 @@
 					  'min': 1,
 					  'max': 10
 					}
+		
 				});
 
+				$('#slider').on({
+					slide: function(){
+						$("#people").html('');
+					},
+					set: function(){
+						var slidervalz = $('#slider').val();
+						for ( var i = 0; i < slidervalz; i++ ) {
+						// Logs "try 0", "try 1", ..., "try 4".
+						$("#people").append('<i class="fa fa-user"></i>');
+						}
+					}
+				});
+
+
+
+				$('.budgetslider').on({
+					slide: function(){
+						var sliderval = $('.budgetslider').val();
+						var upper = parseInt(sliderval) + 30;
+						var sliderrange = sliderval + ' ' + upper;
+
+						$('#input-with-keypress').val(sliderrange);
+					},
+					set: function(){
+						var sliderval = $('.budgetslider').val();
+						var upper = parseInt(sliderval) + 30;
+						var sliderrange = sliderval + ' ' + upper;
+
+
+						$('#input-with-keypress').val(sliderrange);
+
+					}
+				});
+
+				$('.submit').click(function(){
+
+
+		            var firstname = $('.firstname').val();
+
+
+		            var lastname = $('.lastname').val();
+
+		            var street = $('.street').val();
+
+		            var zip = $('.zip').val();
+
+		            var phone = $('.phone').val();
+					var lower = $('.budgetslider').val();
+					var upper = parseInt(sliderval) + 30;
+
+					var servings = $('#slider').val();
+
+		         $.ajax({
+		            type: "POST", // use method specified in form attributes
+		            url: '?page_id=1116', // use action specified in form attributes (servlet)
+		            data: { firstname : firstname, lastname : lastname, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+		            success: function(data) {	
+
+		            	var result = jQuery.parseJSON(data);
+		            	// result['status']
+		            	
+
+		            }
+		        });
+
+
+				});
+
+				/*
+
+rid:        @restaurant["restaurant_id"],
+     em:         "test@test.com",
+     tray:       @tray,
+     tip:        '5.05',
+     first_name: "Joshua",
+     last_name:  "Tester",
+     phone:      "6478967502",
+     zip:        zip,
+     addr:       addr,
+     city:       city,
+     state:      state,
+     card_name:        "Joshua Tester",
+     card_number:      '4111111111111111',
+     card_cvc:         '123',
+     card_expiry:      '02/2016',
+     card_bill_addr:   addr,
+     card_bill_addr2:  "",
+     card_bill_city:   city,
+     card_bill_state:  state,
+     card_bill_zip:    zip,
+     card_bill_phone:  "6478967502",
+     delivery_date:    "ASAP"
+				*/
+				
+
+				$('.ccsubmit').click(function(){
+
+
+		            var name = $('.name').val();
+
+		            var street = $('.street').val();
+
+		            var zip = $('.zip').val();
+
+		            var phone = $('.phone').val();
+					var lower = $('.budgetslider').val();
+					var upper = parseInt(sliderval) + 30;
+
+					var servings = $('#slider').val();
+
+		         $.ajax({
+		            type: "POST", // use method specified in form attributes
+		            url: '?page_id=1116', // use action specified in form attributes (servlet)
+		            data: { name : name, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
+		            success: function(data) {	
+
+		            	var result = jQuery.parseJSON(data);
+		            	// result['status']
+		            	
+
+		            }
+		        });
+
+
+				});
 
 			});
 
