@@ -194,3 +194,33 @@ html, body {
   font-size: 0.9rem;
   margin: 10px 0px;
 }
+
+#hours, #minutes, .dot {
+    padding: 10px 5px;
+}
+
+.timer_label {
+   text-align: center;
+}
+
+.hr_label, .min_label, .sec_label {
+    color: #fff;
+    padding: 0px 8px;
+}
+
+.custom_container {
+  margin-top: 20px;
+}
+
+#countdown {
+    border: 3px solid #fff;
+    border-radius: 6px;
+    width: 40%;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #56B4Eb;
+    color: #fff;
+    padding: 10px 0px;
+    font-size: 40px;
+}

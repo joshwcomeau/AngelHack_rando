@@ -35,9 +35,9 @@
 <div class="step1">
   <div class="cuisine_container">
     <div class="cuisines" style="width: 500px">
-      
+
       <h2 class="craving_header">What are you Craving?</h2>
-    
+
       <ul class="cuisine_btns">
         <li>
           <button class="cat_btn" value="Indian">Indian</button>
@@ -86,11 +86,13 @@
 
 </div>
 
+
+
 <div class="step2" style="position: absolute; top: 30px; width: 100%; height: 100%; right: -100%; background: #FFF;">
 
   <div class="order_container" style="position: absolute; width: 35%;top: 0; padding-top: 100px;">
     <div class="order_details">
-    
+
       <h3>How Many Servings?</h3>
 
     <div id="slider"></div>
@@ -122,9 +124,9 @@
   </div>
 
 
-  
 
-  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0; padding-top: 150px"> 
+
+  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0; padding-top: 150px">
     <div id="red" class="modalButton button red text-blanco text-shadow-negra feedme" data-popup="popupOne">Feed Me</div>
   </div>
 
@@ -256,8 +258,18 @@
 
 <div class="step4" style="background: #0078AB; position: absolute; z-index: 100; top: 30px; width: 100%; height: 100%; right: -100%; color: #FFF">
   <div class="cheat" style="position: absolute; right: 10px; bottom: 30px; font-size: 3rem; cursor: pointer;">Cheat!</div>
-  <h2 style="margin-top: 50px; text-align: center; font-size: 4rem;">Success!</h2>
-  <p style="width: 50%; margin: 0 auto; text-align: center; font-size: 1.5rem; margin-top: 20px;">Your food will arrive shortly. Hope you get something good!</p>
+  <h2 style="margin-top: 50px; text-align: center; font-size: 5rem; color: #a1cf64;">Success!</h2>
+  <p style="width: 50%; margin: 0 auto; text-align: center; font-size: 1.5rem; margin-top: 20px;">Your food will arrive shortly. Hope you get something good!<br><br>Estimated Delivery Time:</p>
+
+  <div class="custom_container">
+    <div id="countdown">
+        <span id="hours"></span>
+        <span class="dot">:</span>
+        <span id="minutes"></span>
+        <span class="dot">:</span>
+        <span id="seconds"></span>
+    </div>
+</div>
 
   <div class="menu_items">
 
@@ -282,7 +294,7 @@ jQuery('.tip_total').keyup(function () {
 <script>
 
   $(document).ready(function(){
-    
+
     var selected_cuisines = [];
 
     $(".show_first_step").click(function() {
@@ -295,8 +307,8 @@ jQuery('.tip_total').keyup(function () {
 
     $('.cat_btn').click(function(){
       var selected_cuisines = categoryToggle(this);
-      
-      
+
+
     });
 
     $(".street, .zip").keyup(function() {
@@ -354,7 +366,7 @@ jQuery('.tip_total').keyup(function () {
         selected_cuisines = [];
         selected_cuisines.push( $(this).attr("value") );
       });
-       
+
        $("#cuisine_summary").html("Random");
 
       $(".cat_btn").addClass("highlight");
@@ -429,7 +441,7 @@ jQuery('.tip_total').keyup(function () {
             'min': 1,
             'max': 10
           }
-    
+
         });
 
         $('#slider').on({
@@ -484,7 +496,7 @@ jQuery('.tip_total').keyup(function () {
         });
 
         $('.feedme').click(function(){
-            
+
 
                 var firstname = $('.firstname').val();
 
@@ -503,7 +515,7 @@ jQuery('.tip_total').keyup(function () {
                 type: "POST", // use method specified in form attributes
                 url: 'http://localhost:3000/menus', // use action specified in form attributes (servlet)
                 data: { cuisines: selected_cuisines, firstname : firstname, lastname : lastname, street : street, zip : zip, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
-                success: function(data) { 
+                success: function(data) {
 
                   $("#pbar").css({width: '75%'});
                   $(".hider").fadeOut(500);
@@ -519,11 +531,11 @@ jQuery('.tip_total').keyup(function () {
 
                   _.each(data, function(item) {
                     $(".menu_items").append("<div class='menu_item'><strong>"+item["name"]+"</strong><p class='mi_descrip'>"+item["descrip"]+"</p><p class='mi_price'>"+item["price"]+"</p></div>");
-                    
+
 
 
                     subtotal += parseFloat(item["price"]);
-                    
+
                   });
 
                   console.log(subtotal);
@@ -535,7 +547,7 @@ jQuery('.tip_total').keyup(function () {
                   // $('.addressgiven').html(street);
                   // $('.servingschosen').html(servings);
                   // $('.menu_selection').html();
-                  
+
 
                 }
             });
@@ -568,7 +580,7 @@ rid:        @restaurant["restaurant_id"],
      card_bill_phone:  "6478967502",
      delivery_date:    "ASAP"
         */
-        
+
 
         // $('.ccsubmit').click(function(){
 
@@ -589,17 +601,53 @@ rid:        @restaurant["restaurant_id"],
         //         type: "POST", // use method specified in form attributes
         //         url: '?page_id=1116', // use action specified in form attributes (servlet)
         //         data: { name : name, street : street, zip : zip, phone : phone, lower : lower, upper : upper, servings : servings }, // encodes set of form elements as string for submission
-        //         success: function(data) { 
+        //         success: function(data) {
 
         //           var result = jQuery.parseJSON(data);
         //           // result['status']
-                  
+
 
         //         }
         //     });
 
 
         // });
+
+
+var end = new Date();
+end.setMinutes(end.getMinutes() + 45);
+
+
+var _second = 1000;
+var _minute = _second * 60;
+var _hour = _minute * 60;
+var _day = _hour *24
+var timer;
+
+function showRemaining()
+{
+    var now = new Date();
+    var distance = end - now;
+    if (distance < 0 ) {
+       // handle expiry here..
+       clearInterval( timer ); // stop the timer from continuing ..
+       alert('Expired'); // alert a message that the timer has expired..
+
+       return; // break out of the function so that we do nowt update the counters with negative values..
+    }
+    var days = Math.floor(distance / _day);
+    var hours = Math.floor( (distance % _day ) / _hour );
+    var minutes = Math.floor( (distance % _hour) / _minute );
+    var seconds = Math.floor( (distance % _minute) / _second );
+
+    $("#hours").html(hours);
+    $("#minutes").html(minutes);
+    $("#seconds").html(seconds);
+}
+
+timer = setInterval(showRemaining, 1000);
+
+
     });
 
 
