@@ -14,13 +14,58 @@ class OrdersController < ApplicationController
       zip:      '10036'
     }
 
-    cuisines = ['American', 'Sushi']
+    cuisines = ['American', 'Indian', 'Thai','Italian']
 
-    budget_low = 10
+    budget_low = 20
+    budget_high = 30
+    servings = 4
 
-    find_restaurant(address, cuisines, budget_low)
+    @restaurant = find_restaurant(address, cuisines, budget_low)
+
+    @order = build_order(@restaurant["menu"], budget_low, budget_high, servings)
+
+    render :json => @restaurant
+
   end
 
+  def build_order(restaurant, budget_low, budget_high, servings)
+    possibilities = recursive_menu_gen(restaurant, [], budget_low, budget_high)
+    possibilities.sample(servings)
+  end
+
+  def build_tray(orders)
+    tray = []
+    orders.each do |o|
+      tray << "#{o['id']}/1"
+    end
+    tray.join("+")
+  end
+
+  def recursive_menu_gen(r_object, keepers, budget_low, budget_high)
+    # Make sure we don't keep max_child_select.
+    
+    r_object.each do |r_key, r_value|
+      r_value = r_key if r_object.is_a? Array
+      if r_value.class == Hash || r_value.class == Array
+        recursive_menu_gen(r_value, keepers, budget_low, budget_high)
+      elsif r_key == 'price' && r_value.to_f >= budget_low && r_value.to_f <= budget_high
+        new_obj = {
+          id: r_object["id"],
+          price: r_object["price"],
+          name: r_object["name"],
+          descrip: r_object["descrip"]
+        }
+        keepers << new_obj
+      end
+    end
+    keepers
+  end
+
+
+# The tray is composed of menu items and optional sub-items. A single menu item's format is: 
+# [menu item id]/[qty],[option id],[option id]... Multiple menu items are joined by a +: 
+# [menu item id]/[qty]+[menu item id2]/[qty2] For example: 3270/2+3263/1,3279 Means 2 of menu item 3270 
+# (with no sub options) and 1 of item num 3263 with sub option 3279.
 
   def find_restaurant(address, cuisines, budget_low)
     # Get a list of all restaurants that deliver to this address from the API
@@ -30,11 +75,15 @@ class OrdersController < ApplicationController
     @valid_restaurants = get_valid_restaurants(@all_restaurants, cuisines, budget_low)
 
     # Grab a random validated restaurant!
-    @restaurant = @valid_restaurants.sample
+    @chosen_restaurant = @valid_restaurants.sample
 
     # Get restaurant info from API
-
-    render :json => @restaurant
+    r_object = {
+      rid: @chosen_restaurant['id'].to_s
+    }
+    
+    # Return restaurant
+    @api.restaurant_details(r_object)
   end
 
 
