@@ -7,13 +7,16 @@
 
   <body>
 
-<div class="hider" style="display: none; position: absolute; z-index: 101; width: 100%; height: 100%; background: rgba(255,255,255,0.8);"></div>
+<div class="hider" style="display: none; position: absolute; z-index: 101; width: 100%; height: 100%; background: rgba(255,255,255,0.8);">
+  <%= image_tag "logo.svg", class: 'spinning_loader' %>
 
-<div class="container step0" style="display:none">
+</div>
+
+<div class="container step0" style="z-index: 300;">
 
   <a class="show_first_step">
     <div class="logo">
-      <%= image_tag "logo.svg" %>
+      <%= image_tag "logo.svg", class: 'first_landing_logo' %>
     </div>
 
     <div class="landing_title">
@@ -91,27 +94,29 @@
   <div class="order_container" style="position: absolute; width: 35%;top: 0; padding-top: 100px;">
     <div class="order_details">
     
-      <h3>How Many Servings?</h3>
+      <h3 style="font-size: 1.6rem; margin-bottom: 15px; text-align: center;">How Many Servings?</h3>
 
     <div id="slider"></div>
 
-    <div id="people"></div>
+    <div id="people" style="text-align: center; margin-top: 10px; font-size: 2.6rem;">
+      <i class="fa fa-user"></i>
+    </div>
 
-      <h3 class="results servings"> 1 Serving</h3>
+      <h3 class="results servings" style="text-align: center; margin-top: 10px; font-size: 1.25rem;"> 1 Serving</h3>
 
-      <h3>What's your budget per serving?</h3>
+      <h3 style="font-size: 1.6rem; margin-bottom: 15px; margin-top: 50px; text-align: center;">What's your budget per serving?</h3>
 
       <div class="budgetslider"></div>
 
-      <h3 class="budg results" id="input-with-keypress"> $10-15 </h3>
+      <h3 class="budg results" id="input-with-keypress"  style="text-align: center; margin-top: 10px; font-size: 1.45rem;"> $10-15 </h3>
 
     </div>
   </div>
 
 
   <div class="delivery_container" style="position: absolute; width: 40%; left: 35%;top: 0; padding-top: 40px;">
-    <div class="delivery_details">
-    <h3 class="delivery_heading">Delivery Address</h3>
+    <div class="delivery_details" style="margin-top: 4rem;">
+    <h3 class="delivery_heading" style>Delivery Address</h3>
       <form>
         <input type="text" name="firstname" class="firstname" placeholder="First Name"><br>
         <input type="text" name="lastname" class="lastname" placeholder="Last Name"><br>
@@ -124,7 +129,7 @@
 
   
 
-  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0; padding-top: 150px"> 
+  <div class="feed_me_container" style="position: absolute; width: 25%; left: 75%; top: 0; padding-top: 130px"> 
     <div id="red" class="modalButton button red text-blanco text-shadow-negra feedme" data-popup="popupOne">Feed Me</div>
   </div>
 
@@ -347,6 +352,15 @@ jQuery('.tip_total').keyup(function () {
 
     }
 
+    var normal_logo = "<%= asset_path 'logo.svg' %>";
+    var squint_logo = "<%= asset_path 'logo_squint.svg' %>";
+
+    $(".first_landing_logo").mouseenter(function() {
+      $(this).attr("src", squint_logo );
+    }).mouseleave(function() {
+      $(this).attr("src", normal_logo );
+    });
+
     $("#idgas").click(function() {
 
       $( ".cat_btn" ).each(function() {
@@ -528,7 +542,9 @@ jQuery('.tip_total').keyup(function () {
 
                   console.log(subtotal);
 
-                  $("#price_summary").html(subtotal);
+                  var price_string = subtotal.toString().substr(0,5)
+
+                  $("#price_summary").html(price_string);
                   $("#tip_summary").val( (subtotal * 0.15).toFixed(2) );
                   $("#total_summary").html( (subtotal * 1.15).toFixed(2) );
 
