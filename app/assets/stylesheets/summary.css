@@ -194,7 +194,7 @@ html, body {
   font-size: 0.9rem;
   margin: 10px 0px;
 }
-<<<<<<< HEAD
+
 
 #hours, #minutes, .dot {
     padding: 10px 5px;
@@ -214,17 +214,20 @@ html, body {
 }
 
 #countdown {
-    border: 3px solid #fff;
-    border-radius: 6px;
-    width: 40%;
-    text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: #56B4Eb;
-    color: #fff;
-    padding: 10px 0px;
-    font-size: 40px;
-=======
+  border-top: 1px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  border-radius: 6px;
+  width: 40%;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #56B4Eb;
+  color: #fff;
+  padding: 10px 0px;
+  font-size: 40px;
+}
 .fa-user {
   margin: 0 2px;
 }
@@ -261,5 +264,15 @@ html, body {
   -webkit-animation-duration:         1.5s; 
   -webkit-animation-iteration-count:  infinite;
   -webkit-transition-timing-function: linear;
->>>>>>> 40ab4a5a7c6f389da99a5e72a75a14d72f8435d1
+}
+
+
+.final_success {
+  text-shadow: 
+   0.5px 0.5px 0px #004866,
+   1px 1px 0px #004866,
+   1.5px 1.5px 0px #004866,
+   2px 2px 0px #004866,
+   2.5px 2.5px 0px #004866,
+   3px 3px 0px #004866;
 }
