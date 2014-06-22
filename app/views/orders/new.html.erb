@@ -1,1 +1,18 @@
-<%= @restaurants %>
+<h1>Order food motherfucker</h1>
+
+<%= form_tag "/menus" do %>
+  <%= text_field_tag 'budget_low', nil, placeholder: 'budget (low)' %>
+  <%= text_field_tag 'budget_high', nil, placeholder: 'budget (high)' %>
+  <br><br>
+  <%= text_field_tag 'servings', nil, placeholder: 'servings' %>
+  <br><br>
+
+  <%= check_box_tag "cuisine[]", 'American', nil %> American <br>
+  <%= check_box_tag "cuisine[]", 'Thai', nil %> Thai <br>
+  <%= check_box_tag "cuisine[]", 'Chinese', nil %> Chinese <br>
+  <%= check_box_tag "cuisine[]", 'Fast Food', nil %> Fast Food <br>
+
+
+  <%= submit_tag %>
+  
+<% end %>
